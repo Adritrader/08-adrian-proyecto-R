@@ -37,7 +37,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BD/PeluqueriaJB.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
+            <state relative-caret-position="527">
               <caret line="31" column="30" selection-end-line="320" />
             </state>
           </provider>
@@ -243,18 +243,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="08-adrian-proyecto2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="08-adrian-proyecto2" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -329,6 +319,7 @@
       <workItem from="1618963355401" duration="1023000" />
       <workItem from="1619795375090" duration="1238000" />
       <workItem from="1620914528664" duration="831000" />
+      <workItem from="1620915689317" duration="442000" />
     </task>
     <task id="LOCAL-00001" summary="cambios">
       <created>1620914601443</created>
@@ -348,14 +339,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73250000" />
+    <option name="totallyTimeSpent" value="73692000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49933067" visible="true" weight="0.07622601" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49933067" visible="true" weight="0.07675906" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" sideWeight="0.50066936" side_tool="true" visible="true" weight="0.07622601" />
+      <window_info id="Favorites" order="2" sideWeight="0.50066936" side_tool="true" weight="0.07622601" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -714,6 +705,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BD/PeluqueriaJB.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="30" selection-end-line="320" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/RegistraModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
@@ -773,13 +771,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BD/PeluqueriaJB.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="31" column="30" selection-end-line="320" />
         </state>
       </provider>
     </entry>
