@@ -48,7 +48,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/quienes-somos.view.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
+            <state relative-caret-position="342">
               <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
             </state>
           </provider>
@@ -321,7 +321,7 @@
       <workItem from="1618963355401" duration="1023000" />
       <workItem from="1619795375090" duration="1238000" />
       <workItem from="1620914528664" duration="831000" />
-      <workItem from="1620915689317" duration="702000" />
+      <workItem from="1620915689317" duration="1563000" />
     </task>
     <task id="LOCAL-00001" summary="cambios">
       <created>1620914601443</created>
@@ -341,7 +341,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73952000" />
+    <option name="totallyTimeSpent" value="74813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -778,7 +778,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/quienes-somos.view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
+        <state relative-caret-position="342">
           <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
         </state>
       </provider>
