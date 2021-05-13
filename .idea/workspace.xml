@@ -4,7 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/views/back/back-reservas.view.php" line="71" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0432efab-530b-4b44-8316-d979927d7394" name="Default Changelist" comment="" />
+    <list default="true" id="0432efab-530b-4b44-8316-d979927d7394" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/doctrine/lexer/" />
     <ignored path="$PROJECT_DIR$/vendor/egulias/email-validator/" />
@@ -319,7 +321,7 @@
       <workItem from="1618963355401" duration="1023000" />
       <workItem from="1619795375090" duration="1238000" />
       <workItem from="1620914528664" duration="831000" />
-      <workItem from="1620915689317" duration="442000" />
+      <workItem from="1620915689317" duration="702000" />
     </task>
     <task id="LOCAL-00001" summary="cambios">
       <created>1620914601443</created>
@@ -339,7 +341,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73692000" />
+    <option name="totallyTimeSpent" value="73952000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
