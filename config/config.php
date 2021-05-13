@@ -5,7 +5,7 @@ use Monolog\Logger;
 return [
     "database" =>
         [
-            "connection" => "mysql:host=localhost;dbname=PeluqueriaJB;charset=utf8",
+            "connection" => "mysql:host=localhost;dbname=pelu-recu;charset=utf8",
             "username" => "root",
             "password" => "",
             "options" => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

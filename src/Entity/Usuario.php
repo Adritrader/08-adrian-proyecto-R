@@ -13,12 +13,12 @@ class Usuario implements Entity, JsonSerializable {
     private ?int $id = null;
     private string $nombre;
     private string $apellidos;
-    private int $telefono;
+    private string $telefono;
     private string $email;
     private string $username;
     private string $password;
-    private string $avatar;
-    private string $role;
+    private ?string $avatar;
+    private ?string $role;
 
     /**
      * @return null

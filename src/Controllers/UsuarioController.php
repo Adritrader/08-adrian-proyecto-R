@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Exception\ModelException;
 use App\Core\Exception\NotFoundException;
 use App\Core\Router;
+use App\Database;
 use App\Entity\Producto;
 use App\Entity\Usuario;
 use App\Core\App;
@@ -148,7 +149,17 @@ public function createUsuario(): string
     {
         $errors = [];
 
+        //Modificaciones recuperación
 
+        $user = new Usuario();
+        $userModel = new UsuarioModel(Database::getConnection());
+
+        $userModel->loadData($_POST, $user);
+
+
+        var_dump($user);
+
+        /*
         $nombre = filter_input(INPUT_POST, "nombre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $apellidos = filter_input(INPUT_POST, "apellidos", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $telefono = filter_input(INPUT_POST, "telefono", FILTER_VALIDATE_INT);
@@ -157,8 +168,8 @@ public function createUsuario(): string
         $password = filter_input(INPUT_POST, "password");
         $repitePassword = filter_input(INPUT_POST, "repitePassword");
         $avatar = filter_input(INPUT_POST, "avatar");
-
-        if (empty($nombre)) {
+        */
+        /*if (empty($nombre)) {
             $errors[] = "El nombre es obligatorio";
         }
         if (empty($apellidos)) {
@@ -189,7 +200,9 @@ public function createUsuario(): string
         if($repitePassword !== $password){
 
             $errors[] = "Debe introcir el mismo password";
-        }
+        }*/
+
+        $errors = $userModel->validate($user);
 
         // Si hay errores no necesitamos subir la imagen
         if (empty($errors)) {
@@ -209,8 +222,13 @@ public function createUsuario(): string
 
 
             try {
+
+                session_start();
+
                 $usuarioModel = App::getModel(UsuarioModel::class);
+                /*
                 $usuario = new Usuario();
+
 
                 $usuario->setNombre($nombre);
                 $usuario->setApellidos($apellidos);
@@ -221,9 +239,20 @@ public function createUsuario(): string
                 $usuario->setAvatar($avatar);
                 $usuario->setRole("ROLE_USER");
 
+                */
 
 
-                $usuarioModel->saveTransaction($usuario);
+
+                $_SESSION["nombre"] = $user->getNombre();
+                $_SESSION["apellidos"] = $user->getApellidos();
+                $_SESSION["email"] = $user->getEmail();
+                $_SESSION["telefono"] = $user->getTelefono();
+                $_SESSION["username"] = $user->getUsername();
+                $_SESSION["password"] = $user->getPassword();
+                $_SESSION["avatar"] = $user->getAvatar();
+
+
+                $usuarioModel->saveTransaction($user);
                 App::get(MyLogger::class)->info("Se ha creado un nuevo usuario");
 
             } catch (PDOException | ModelException | Exception $e) {
@@ -237,7 +266,7 @@ public function createUsuario(): string
         }
 
         return $this->response->renderView("auth/login", "my", compact(
-            "errors", "nombre"));
+            "errors"));
     }
 
     public function registrarUsuario(): string

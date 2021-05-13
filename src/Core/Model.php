@@ -318,4 +318,45 @@ abstract class Model
             throw new ModelException("pagination error: ".$PDOException->getMessage());
         }
     }
+
+    // New functions
+
+    /**
+     * @param array $data
+     * @param Entity $entity
+     * @return Entity
+     */
+
+    public function loadData(array $data, Entity $entity) : Entity{
+
+        foreach ($data as $key => $value){
+
+            if (property_exists($this->className, $key)){
+
+                //$entity::_set($key, $value);
+
+                $func = "set".ucwords($key, '-');
+                $func = str_replace("-", "", $func);
+
+                if (method_exists($this->className, $func)){
+
+                    $entity->$func($value);
+                }
+
+                /*elseif (strpos($key, "date") > 0) {
+
+                    $entity->$key = $value;
+
+                }*/
+
+
+            }
+
+        }
+
+        return $entity;
+
+    }
+
+    abstract public function validate(Entity $entity): array;
 }

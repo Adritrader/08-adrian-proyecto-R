@@ -26,12 +26,8 @@
                         <input id="password" class="form-control" type="password" name="password" required>
                     </div>
                     <div class="form-group">
-                        <label for="repitePassword">Repite Password:</label>
-                        <input id="repitePassword" class="form-control" type="password" name="repitePassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="repitePassword">Avatar:</label>
-                        <input id="repitePassword" class="form-control" type="file" name="avatar" required>
+                        <label for="avatar">Avatar:</label>
+                        <input id="avatar" class="form-control" type="file" name="avatar" required>
                     </div>
                     <div class="botones-form">
                         <div class="form-group text-right">
