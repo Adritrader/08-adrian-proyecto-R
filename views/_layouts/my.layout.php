@@ -11,6 +11,10 @@
     <link rel="stylesheet" type="text/css" href="/css/formulario-reserva.css">
     <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+
+
+
     <script src="js/app.js"></script>
     <title>Home | Juan Bisquert Peluqueros</title>
 </head>
@@ -93,12 +97,56 @@
                     <?php endif;?>
 
 
-                <div class="row fila-carrito">
-                    <div class="col-12">
-                        <i class="fas fa-shopping-cart"><span>0,00&nbsp;€</span></i>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <form class="form-inline my-2 my-lg-0">
+                        <a id="link-carrito" href="#carrito-desplegado"
+                                                                     data-toggle="collapse" data-target="#carrito-desplegado" href="#carrito-desplegado"
+                                                                     aria-expanded="false" aria-controls="carrito-desplegado"><i id="carrito"
+                                                                                                                                 class="fa fa-shopping-cart p-1"></i></a>
+                    </form>
+                </div>
+
+                <div class="collapse col-3 col-xl-3 col-md-3 col-sm-3" id="carrito-desplegado">
+                    <div class="card">
+                        <table class="table">
+
+                            <tr>
+                                <td><a class="mt-2">HD 1 GB</a></td>
+                                <td>
+                                    <h6 class="font-weight-bold">150,50 €</h6>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td><a class="mt-2">Monitor LG</a></td>
+                                <td>
+                                    <h6 class="font-weight-bold">150,50 €</h6>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td><a class="mt-2">Processador Intel i7</a></td>
+                                <td>
+                                    <h6 class="font-weight-bold">150,50 €</h6>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6 class="font-weight-bold mt-2">Total</h6>
+                                </td>
+                                <td>
+                                    <h6 class="font-weight-bold mt-2">4235,23 €</h6>
+                                </td>
+
+                            </tr>
+                        </table>
                     </div>
                 </div>
-            </div>
 
         </div>
         <div class="container-fluid container-barra-nav">

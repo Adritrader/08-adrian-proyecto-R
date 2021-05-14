@@ -166,7 +166,7 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `apellidos` varchar(45) DEFAULT NULL,
-  `telefono` int(11) DEFAULT NULL,
+  `telefono` varchar(15) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `password` varchar(25) DEFAULT NULL,
   `role` varchar(20) DEFAULT NULL,
