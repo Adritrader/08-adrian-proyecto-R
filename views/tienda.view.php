@@ -109,7 +109,7 @@
                 <?php
                 $_SESSION["shoppingCart"] = array($producto);
                 }
-
+                var_dump("hola");
 
                 var_dump($_SESSION["shoppingCart"]);
                 ?>
