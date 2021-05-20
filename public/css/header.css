@@ -272,3 +272,90 @@ a {
   padding: 15px;
 
 }
+
+/*Carrito*/
+
+.color-nav {
+
+  background-color: lightgrey;
+
+}
+
+
+.botones-fila a {
+
+  justify-content: space-between;
+  padding: 7px;
+
+}
+
+#alerta-icono {
+
+  color:rgb(165, 7, 7);
+
+}
+
+footer {
+
+  border-top: 1px solid lightgrey;
+
+}
+
+.active2 {
+
+  background-color: #0275d8;
+  color: white;
+}
+
+#carrito {
+
+  font-size: 30px;
+  text-decoration: none;
+  color: white;
+
+}
+
+span{
+
+  margin-right: -15px;
+  margin-top: -12px;
+  z-index: 1;
+
+}
+
+
+#carrito-desplegado {
+
+
+  left: 1060px;
+  position: absolute;
+  z-index: 1;
+  margin-top: -5px;
+
+}
+
+
+.fila-alerta-file {
+
+  border-bottom: 1px solid lightgray  ;
+}
+
+.alertas-file-alt li {
+
+  list-style: none;
+
+}
+
+.col-alertas {
+
+  position: relative;
+  z-index: 1  ;
+
+}
+
+.disco-duro {
+
+  display: flex;
+  justify-content: space-between;
+
+}
