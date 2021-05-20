@@ -195,7 +195,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST["Submit1"])) {
 
-        var_dump($_SESSION["shoppingCart"][$producto->getId()]);
+
 
     }
 }
