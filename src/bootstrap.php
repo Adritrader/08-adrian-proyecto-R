@@ -9,6 +9,7 @@ use App\Core\Response;
 use App\Database;
 use App\Entity\Usuario;
 use App\Model\UserModel;
+use App\Model\RealizaModel;
 use App\Utils\MyLogger;
 use App\Utils\MyMail;
 use App\Core\Helpers\FlashMessage;
@@ -76,4 +77,25 @@ if (!empty($id)) {
 }
 else
     App::bind('user', null);
+
+
+// we use the coalesce operator to check if shoppingCart is set
+// if not we assign an empty array to $shoppigCart.
+
+
+$shoppingCart = $_SESSION["shoppingCart"] ?? [];
+
+$cart = filter_var($shoppingCart);
+
+if (!empty($cart)) {
+    try {
+        App::bind('cart', App::getModel(RealizaModel::class)->find($id));
+    }
+    catch (NotFoundException $notFoundException) {
+        App::bind('cart',null);
+    }
+}
+else
+    App::bind('cart', null);
+
 ?>

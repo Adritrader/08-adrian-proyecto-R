@@ -7,6 +7,8 @@
     </div>
 </div>
 </div>
+
+
 <div class="container-fluid">
     <div class="row fila-servicios">
         <div class="col-2">
@@ -19,8 +21,8 @@
                     <a href="#">Hombre</a>
                     <a href="#">Tratamientos</a>
                 </div>
-                <a href="#contact">Uñas</a>
             </div>
+
         </div>
         <div class="col-5 texto-servicios">
 

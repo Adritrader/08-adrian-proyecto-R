@@ -58,6 +58,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-1 col-carrito">
 
                     <?php
@@ -94,8 +95,20 @@
 
 
                 <div class="row fila-carrito">
-                    <div class="col-12">
-                        <i class="fas fa-shopping-cart"><span>0,00&nbsp;€</span></i>
+                    <div class="col-12 sidenav-shop">
+                        <i class="fas fa-shopping-cart dropdown-btn"><span>0,00&nbsp;€</span></i>
+                            <div class="dropdown-container-shop">
+                                <?php
+                                $shoppingCart = $_SESSION["shoppingCart"] ?? [];
+
+                                if($shoppingCart != []):?>
+                                <a href="#">Mujer</a>
+                                <a href="#">Hombre</a>
+                                <a href="#">Tratamientos</a>
+                                <?php else: ?>
+                                <?php endif;?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

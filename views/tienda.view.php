@@ -88,6 +88,9 @@
             <h2>Destacados</h2>
             <hr>
             <div class="row productos-miniaturas">
+
+                <form action="">
+
             <?php use App\Entity\Producto;
 
 
@@ -99,11 +102,19 @@
                     <p><?= $producto->getDescripcion() ?></p>
                     <a href="<?=$router->getUrl("producto_show", ["id"=>$producto->getId()])?>">
                         <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button></a>
-                    <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
+                    <input type="hidden" value="<?=$producto->getId()?>">
+                    <button type="submit" class="button-three" name="Submit1"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
+
                 </div>
                 <?php
+                $_SESSION["shoppingCart"] = array($producto);
                 }
+
+
+                var_dump($_SESSION["shoppingCart"]);
                 ?>
+
+                </form>
 
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -177,4 +188,16 @@
         </div>
     </div>
 </div>
+
+<?php
+
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (isset($_POST["Submit1"])) {
+
+        var_dump($_SESSION["shoppingCart"][$producto->getId()]);
+
+    }
+}
+
 

@@ -8,7 +8,7 @@ use Exception;
 use PDO;
 use PDOException;
 
-abstract class Model
+class Model
 {
     protected string $tableName;
     protected string $className;
@@ -357,6 +357,4 @@ abstract class Model
         return $entity;
 
     }
-
-    abstract public function validate(Entity $entity): array;
 }
