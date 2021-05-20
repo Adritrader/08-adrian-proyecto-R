@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,9 +66,8 @@
 
                     use App\Core\App;
                     use App\Core\Router;
+                    use App\Entity\Producto;
                     use App\Model\UsuarioModel;
-
-
 
 
                     $loggedUser = $_SESSION["loggedUser"]??[];
@@ -96,22 +96,36 @@
 
                 <div class="row fila-carrito">
                     <div class="col-12 sidenav-shop">
-                        <i class="fas fa-shopping-cart dropdown-btn"><span>0,00&nbsp;€</span></i>
+                        <i class="fas fa-shopping-cart dropdown-btn"><span><?= $_SESSION["totalCart"] ?? "0,00€"?></span></i>
                             <div class="dropdown-container-shop">
+                                <table class="table table-dark">
                                 <?php
+
+
+
                                 $shoppingCart = $_SESSION["shoppingCart"] ?? [];
 
-                                if($shoppingCart != []):?>
-                                <a href="#">Mujer</a>
-                                <a href="#">Hombre</a>
-                                <a href="#">Tratamientos</a>
-                                <?php else: ?>
-                                <?php endif;?>
+                                if($shoppingCart != []){
+
+                                    foreach ($shoppingCart as $producto) { ?>
+
+                                    <tr><td class="cell"><?= generar_imagen_local(Producto::IMAGEN_PATH . '/', $producto->getImagen(),
+                                            $producto->getNombre(), 60, 60, 60) ?></td>
+                                        <td style="font-size: 12px"><?= $producto->getNombre()?></td>
+                                        <td style="padding: 15px; font-size: 12px"><?= $producto->getPrecio()?>€</td>
+
+                                    </tr>
+                                    <?php }
+                                    ?><tr><td><a href="/shopping-cart"><button class="button-two">Checkout</button></td></tr></a><?php
+                                    } ?>
+
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
         </div>
         <div class="container-fluid container-barra-nav">

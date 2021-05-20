@@ -89,9 +89,13 @@
             <hr>
             <div class="row productos-miniaturas">
 
-                <form action="">
 
-            <?php use App\Entity\Producto;
+            <?php use App\Core\App;
+            use App\Entity\Producto;
+            use App\Model\ProductoModel;
+
+
+
 
 
             foreach ($productos as $producto) { ?>
@@ -102,19 +106,18 @@
                     <p><?= $producto->getDescripcion() ?></p>
                     <a href="<?=$router->getUrl("producto_show", ["id"=>$producto->getId()])?>">
                         <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button></a>
-                    <input type="hidden" value="<?=$producto->getId()?>">
-                    <button type="submit" class="button-three" name="Submit1"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
+                    <a href="/tienda?id=<?=$producto->getId()?>"><button type="submit" class="button-three" name="Submit1"><i class="fas fa-shopping-cart"></i>Añadir compra</button></a>
 
                 </div>
                 <?php
-                $_SESSION["shoppingCart"] = array($producto);
+
                 }
-                var_dump("hola");
 
-                var_dump($_SESSION["shoppingCart"]);
-                ?>
 
-                </form>
+            ?>
+
+                    <input type="hidden" name="idPro" id="idPro" value="<?=$producto->getId()?>">
+
 
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -191,13 +194,22 @@
 
 <?php
 
-if($_SERVER["REQUEST_METHOD"] === "POST") {
+if(!empty($_GET['id'])){
 
-    if (isset($_POST["Submit1"])) {
+    if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
+        $id = $_GET['id'] ?? "";
+
+        $productoModel = App::getModel(ProductoModel::class);
+        $producto = $productoModel->find($id);
+
+
+        $_SESSION["shoppingCart"][] = $producto;
+        $_SESSION["totalCart"] += $producto->getPrecio();
 
 
     }
 }
+
 
 

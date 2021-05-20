@@ -921,7 +921,7 @@ iframe .blog {
 .sidenav-shop {
 
   background-color: transparent;
-  max-width: 240px !important;
+  max-width: 300px !important;
   margin-left: -75px;
   z-index: 99999;
   position: absolute;
@@ -983,7 +983,7 @@ iframe .blog {
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
 
-  width: 200px;
+  width: 300px;
   padding-right: 10px;
   display: none;
   background-color: #262626;
@@ -992,19 +992,21 @@ iframe .blog {
 
 .dropdown-container-shop {
 
-  margin-left: -40px;
-  margin-top: 20px;
-  width: 200px;
+  margin-left: -100px;
+  margin-top: 10px;
+  width: 400px;
   max-width: 100%;
-  padding-right: 10px;
+  padding: 10px;
   display: none;
-  background-color: #262626;
   padding-left: 8px;
   position: absolute;
 
 }
 
+.cell {
 
+
+}
 
 
 /* Optional: Style the caret down icon */
@@ -1218,7 +1220,6 @@ span.psw {
 }
 
 
-<<<<<<< HEAD
 body{margin-top:20px;
   background:#eee;
 }
@@ -1312,5 +1313,4 @@ table.shoping-cart-table tr td:last-child {
   background: #ffffff;
   padding: 10px 15px;
 }
-=======
->>>>>>> origin/master
+

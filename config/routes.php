@@ -15,6 +15,7 @@ $router->get("blog", "MyController", "blog");
 $router->get("contacto", "MyController", "contacto");
 $router->get("tienda", "MyController", "tienda", [],"tienda");
 $router->get("signup", "MyController", "signup");
+$router->get("shopping-cart", "MyController", "shoppingCart");
 $router->get("single-page", "MyController", "single-page");
 
 
