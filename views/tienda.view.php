@@ -1,5 +1,8 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<?php
 
+$isGet = false ; ?>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <div class="container-fluid">
     <div class="row fila-ruta">
         <div class="col-5 col-ruta">
@@ -197,6 +200,8 @@
 if(!empty($_GET['id'])){
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
+
+        $isGet = true;
 
         $id = $_GET['id'] ?? "";
 

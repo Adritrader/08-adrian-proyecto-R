@@ -4,6 +4,8 @@
 namespace App\Core\Exception;
 
 
+use App\Core\App;
+use App\Core\Response;
 use Exception;
 use Throwable;
 
@@ -38,11 +40,10 @@ class AppException extends Exception
         header($_SERVER["SERVER_PROTOCOL"] . ' ' . $httpStatus);
 
         $response = App::get(Response::class);
-        return $response->renderView('error', 'default', compact('message', 'code'));
+        return $response->renderView('error', 'my', compact('message', 'code'));
     }
 
-    private function getHttpStatus(): string
-    {
+    private function getHttpStatus(): string {
         switch ($this->getCode()) {
             case 404:
                 $status = "404 Not Found";

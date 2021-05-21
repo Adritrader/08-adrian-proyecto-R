@@ -183,7 +183,7 @@ class ProductoController extends Controller {
     {
         $errors = [];
         if (!empty($id)) {
-            try {
+            //try {
                 $productoModel = App::getModel(ProductoModel::class);
                 $producto = $productoModel->find($id);
                 $productos = $productoModel->findAll();
@@ -191,9 +191,9 @@ class ProductoController extends Controller {
                 return $this->response->renderView("single-page", "my", compact(
                     "errors", "producto", "productos"));
 
-            } catch (NotFoundException $notFoundException) {
-                $errors[] = $notFoundException->getMessage();
-            }
+            //} catch (NotFoundException $notFoundException) {
+              //  $errors[] = $notFoundException->getMessage();
+            //}
         }
         else
             return $this->response->renderView("single-page", "my", compact(

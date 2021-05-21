@@ -197,7 +197,6 @@ public function createUsuario(): string
             $errors[] = "Debe introcir el mismo password";
         }
 
-        $errors = $userModel->validate($user);
 
         // Si hay errores no necesitamos subir la imagen
         if (empty($errors)) {
@@ -246,6 +245,7 @@ public function createUsuario(): string
 
         if (empty($errors)) {
             App::get('flash')->set("message", "Se ha registrado correctamente");
+            App::get('logger')->set("comment", "Se ha registrado correctamente");
             App::get(Router::class)->redirect("login");
         }
 
