@@ -15,7 +15,6 @@ $router->get("blog", "MyController", "blog");
 $router->get("contacto", "MyController", "contacto");
 $router->get("tienda", "MyController", "tienda", [],"tienda");
 $router->get("signup", "MyController", "signup");
-$router->get("shopping-cart", "MyController", "shoppingCart");
 $router->get("single-page", "MyController", "single-page");
 
 
@@ -36,14 +35,13 @@ $router->get("back-reservas", "BackController", "backReservas");
 $router->get("back-galeria", "BackController", "backGaleria");
 $router->get("back-blog", "BackController", "backBlog");
 $router->get("back-productos", "BackController", "backProductos");
-$router->get("back-pedidos", "BackController", "backPedidos");
+//$router->get("back-pedidos", "BackController", "backPedidos");
 $router->get("back-usuarios", "BackController", "backUsuarios");
 
 
 /*BackOffice Productos routes*/
 
 $router->get("productos", "ProductoController", "index", [], "producto_index", "ROLE_ADMIN");
-
 $router->post("productos", "ProductoController", "filterProducto", [], "producto_filter", "ROLE_ADMIN");
 $router->get("productos/create", "ProductoController", "createProducto", [], "producto_create", "ROLE_ADMIN");
 $router->post("productos/create", "ProductoController", "storeProducto", [], "producto_store", "ROLE_ADMIN");
@@ -56,10 +54,10 @@ $router->post("productos/delete", "ProductoController", "destroyProducto", [], "
 
 /*BackOffice Pedidos routes */
 
-$router->get("pedidos", "PedidoController", "index", [], "pedidos_index", "ROLE_ADMIN");
+$router->get("back-pedidos", "PedidoController", "index", [], "pedidos_index", "ROLE_ADMIN");
 $router->post("pedidos", "BackController", "filter", [], "pedidos_filter", "ROLE_ADMIN");
-$router->get("pedidos/create", "BackController", "createPedido", [], "pedidos_create", "ROLE_ADMIN");
-$router->post("pedidos/create", "BackController", "storePedido", [], "pedidos_store", "ROLE_ADMIN");
+$router->get("pedidos/create", "PedidoController", "createPedido", ["id" => "number"], "pedidos_create", "ROLE_USER");
+$router->post("pedidos/create", "PedidoController", "storePedido", ["id" => "number"], "pedidos_store", "ROLE_USER");
 $router->get("pedidos/:id/edit", "MovieController", "edit", ["id" => "number"]);
 $router->post("pedidos/:id/edit", "MovieController", "edit", ["id" => "number"]);
 $router->get("pedidos/:id/show", "BackController", "showPedido",

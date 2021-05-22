@@ -33,6 +33,7 @@ class ProductoController extends Controller {
         $productoModel = App::getModel(ProductoModel::class);
         $productos = $productoModel->findAll();
 
+
         $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
 
         if (!empty($_GET['order'])) {

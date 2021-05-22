@@ -11,11 +11,13 @@ use App\Entity\Usuario;
 use App\Entity\Producto;
 use App\Exception\UploadedFileException;
 use App\Exception\UploadedFileNoFileException;
+use App\Model\ContieneModel;
 use App\Model\GenreModel;
 use App\Model\MovieModel;
 use App\Model\PartnerModel;
 use App\Model\PedidoModel;
 use App\Model\ProductoModel;
+use App\Model\RealizaModel;
 use App\Model\UsuarioModel;
 use App\Utils\MyLogger;
 use App\Utils\MyMail;
@@ -89,27 +91,39 @@ class BackController extends Controller
     public function backPedidos(): string
     {
 
-        $title = "BackOffice | Pedidos";
+        $title = "Pedidos";
         $errors = [];
+
         $pedidoModel = App::getModel(PedidoModel::class);
+        $realiza_usuarioModel = App::getModel( RealizaModel::class);
+        $contieneModel = App::getModel(ContieneModel::class);
+
+        $realizaUsuario = $realiza_usuarioModel->findAll();
         $pedidos = $pedidoModel->findAll();
+        $contiene = $contieneModel->findAll();
+
+        var_dump($pedidos);
+        var_dump($errors);
+        var_dump($contiene);
+
 
         $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
 
         if (!empty($_GET['order'])) {
             $orderBy = [$_GET["order"] => $_GET["tipo"]];
             try {
-                $pedidos = $pedidoModel->findAll($orderBy);
+                $realizaUsuario = $realiza_usuarioModel->findAll($orderBy);
+
             } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
         }
-
         $router = App::get(Router::class);
 
         $message = App::get("flash")::get("message");
 
-        return $this->response->renderView("back/back-pedidos", "back");
+        return $this->response->renderView("back/back-pedidos", "back", compact('title', 'pedidos', 'realizaUsuario',
+            'pedidoModel', 'realiza_usuarioModel', 'contiene','contieneModel', 'errors', 'router', 'message'));
 
     }
     public function backUsuarios(): string

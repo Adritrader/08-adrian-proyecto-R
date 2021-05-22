@@ -70,9 +70,7 @@
                                 <td><a href="/pedidos/<?= $pedido->getId() ?>/edit">
                                         <button type="button" class="button-two"><i class="fa fa-edit"></i>Editar</button>
                                     </a>
-                                    <a href="<?= $router->getUrl("pedido_delete", ["id" => $pedido->getId()]) ?>">
-                                        <button type="button" class="button-two"><i class="fa fa-trash"></i>Borrar</button>
-                                    </a>
+
                                 </td>
                             </tr>
                             <?php

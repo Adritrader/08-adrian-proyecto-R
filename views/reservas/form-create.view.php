@@ -2,7 +2,7 @@
         <div class="row fila-formulario">
 
             <div class="form-style-3 col-4 col-formulario">
-                <form action="" method="post" method="post" enctype="multipart/form-data" novalidate>
+                <form action="" method="post" enctype="multipart/form-data" novalidate>
                     <fieldset>
                         <legend>Datos Personales</legend>
                         <input type="hidden" name="USUARIO_id" value="<?= $user->getId() ?>">

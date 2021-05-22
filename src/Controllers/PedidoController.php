@@ -8,12 +8,17 @@ use App\Core\Controller;
 use App\Core\Exception\ModelException;
 use App\Core\Exception\NotFoundException;
 use App\Core\Router;
+use App\Entity\Pedido;
+use App\Entity\Realiza;
 use App\Exception\UploadedFileException;
 use App\Exception\UploadedFileNoFileException;
 use App\Model\ContieneModel;
 use App\Core\App;
 use App\Model\PedidoModel;
+use App\Model\ProductoModel;
 use App\Model\RealizaModel;
+use App\Model\ServicioModel;
+use App\Model\UsuarioModel;
 use App\Utils\MyLogger;
 use App\Utils\UploadedFile;
 use DateTime;
@@ -35,12 +40,15 @@ class PedidoController extends Controller
 
         $title = "Pedidos";
         $errors = [];
+
         $pedidoModel = App::getModel(PedidoModel::class);
         $realiza_usuarioModel = App::getModel( RealizaModel::class);
         $contieneModel = App::getModel(ContieneModel::class);
+
         $realizaUsuario = $realiza_usuarioModel->findAll();
         $pedidos = $pedidoModel->findAll();
         $contiene = $contieneModel->findAll();
+
 
         $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
 
@@ -109,12 +117,17 @@ class PedidoController extends Controller
      * @return string
      * @throws Exception
      */
-    public function create(): string
+    public function createPedido(): string
     {
-        $genreModel = new GenreModel(App::get("DB"));
-        $genres = $genreModel->findAll(["name" => "ASC"]);
 
-        return $this->response->renderView("movies-create-form", "default", compact("genres"));
+        $router = App::get(Router::class);
+        $usuarioModel = App::getModel(UsuarioModel::class);
+        $usuario = $usuarioModel->find($_SESSION["loggedUser"]);
+        $errors = $_SESSION["errors"] ?? "";
+
+        return $this->response->renderView("carrito", "my", compact( 'router', 'usuario', 'errors'));
+
+
     }
 
     /**
@@ -123,42 +136,49 @@ class PedidoController extends Controller
      */
     public function storePedido(): string
     {
+
         $errors = [];
-        $pdo = App::get("DB");
-        $realiza_idModel = new RealizaModel($pdo);
-        $realiza_idPedido = $realiza_idModel->findAll();
 
-        $precio = filter_input(INPUT_POST, "precio", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $estado = filter_input(INPUT_POST, "estado", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $realiza_id = filter_input(INPUT_POST, "realiza_id", FILTER_VALIDATE_INT);
-        $realiza_usuario_id = filter_input(INPUT_POST, "realiza_usuario_id", FILTER_VALIDATE_INT);
+        $totalCart = $_SESSION["totalCart"];
+        $estado = "Preparando";
+
+        $fecha = date("Y-m-d", time());
 
 
-        if (empty($precio)) {
-            $errors[] = "The name is mandatory";
-        }
-        if (empty($estado)) {
-            $errors[] = "The overview is mandatory";
-        }
+        $realiza_usuarioModel = App::getModel(RealizaModel::class);
 
-        $fecha = DateTime::createFromFormat("Y-m-d", $_POST["fecha"]);
-        if (empty($fecha)) {
-            $errors[] = "La fecha del pedido es obligatoria";
-        }
+        $realizaUsuario = $realiza_usuarioModel->find($_SESSION["loggedUser"]);
 
+
+
+        $usuarioModel = App::getModel(UsuarioModel::class);
+        $usuario = $usuarioModel->find($_SESSION["loggedUser"]);
+
+        $fechaPedido = DateTime::createFromFormat("Y-m-d", $fecha);
+
+
+        var_dump($realizaUsuario);
+        var_dump($usuario);
 
         if (empty($errors)) {
             try {
-                $pedidoModel = new PedidoModel($pdo);
+                $pedidoModel = App::getModel(PedidoModel::class);
                 $pedido = new Pedido();
+                $realiza = new Realiza();
 
-                $pedido->setPrecio($precio);
+
+                $realiza->setUSUARIOId($usuario->getId());
+                $realiza_usuarioModel->save($realiza);
+
+
+                $pedido->setPrecio($totalCart);
                 $pedido->setEstado($estado);
-                $pedido->setFecha($fecha);
-                $pedido->setRealizaId($realiza_id);
-                $pedido->getRealizaUsuarioId($realiza_usuario_id);
+                $pedido->setFechaPedido($fechaPedido);
+                $pedido->setRealizaId($realiza->getId());
+                $pedido->setREALIZAUSUARIOId($realizaUsuario->getUSUARIOId());
 
-                $pedidoModel->saveTransaction($pedido);
+                $pedidoModel->save($pedido);
+
                 App::get(MyLogger::class)->info("Se ha creado un nuevo pedido");
 
             } catch (PDOException | ModelException | Exception $e) {
@@ -166,15 +186,17 @@ class PedidoController extends Controller
             }
         }
 
-        if (empty($errors)) {
-            App::get(Router::class)->redirect("pedidos");
+        if (!empty($errors)) {
+
+            var_dump($errors);
         }
 
-        return $this->response->renderView("pedidos-create", "back", compact(
-            "errors", "realiza_id", "contiene_id"));
+        return $this->response->renderView("auth/login", "my", compact(
+            "errors"));
+
     }
 
-    /**
+        /**
      * @param int $id
      * @return string
      * @throws Exception

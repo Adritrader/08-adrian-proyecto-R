@@ -116,7 +116,7 @@
 
                                     </tr>
                                     <?php }
-                                    ?><tr><td><a href="/shopping-cart"><button class="button-two">Checkout</button></td></tr></a><?php
+                                    ?><tr><td><a href="pedidos/create"><button class="button-two">Checkout</button></td></tr></a><?php
                                     } ?>
 
                                 </table>

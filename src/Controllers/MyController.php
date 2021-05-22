@@ -130,15 +130,6 @@ class MyController extends Controller
 
     }
 
-    public function shoppingCart(): string
-    {
-
-
-
-        return $this->response->renderView("carrito", "my");
-
-
-    }
 
 
 
