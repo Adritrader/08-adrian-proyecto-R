@@ -60,7 +60,7 @@
                         <?php foreach ($registra as $reserva) {
                             ?>
                             <tr>
-                                <td><?= $reserva->getId()?></td>
+                                <td><?= "hola" . $reserva->getId()?></td>
                                 <td> <?php $usuario = $registraModel->getNombre($reserva->getUsuarioId());
                                     echo $usuario->getNombre() ?></td>
                                 <td><?php $servicio = $registraModel->getServicio($reserva->getServicioId());
