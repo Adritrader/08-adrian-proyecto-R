@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Exception\ModelException;
 use App\Core\Exception\NotFoundException;
 use App\Core\Router;
+use App\Entity\Contiene;
 use App\Entity\Pedido;
 use App\Entity\Realiza;
 use App\Exception\UploadedFileException;
@@ -127,7 +128,6 @@ class PedidoController extends Controller
 
         return $this->response->renderView("carrito", "my", compact( 'router', 'usuario', 'errors'));
 
-
     }
 
     /**
@@ -138,61 +138,95 @@ class PedidoController extends Controller
     {
 
         $errors = [];
-
         $totalCart = $_SESSION["totalCart"];
+        $cartProducts = $_SESSION["shoppingCart"];
         $estado = "Preparando";
-
         $fecha = date("Y-m-d", time());
 
-
         $realiza_usuarioModel = App::getModel(RealizaModel::class);
-
-        $realizaUsuario = $realiza_usuarioModel->find($_SESSION["loggedUser"]);
-
-
-
+        $pedidoModel = App::getModel(PedidoModel::class);
         $usuarioModel = App::getModel(UsuarioModel::class);
+        $contieneModel = App::getModel(ContieneModel::class);
+
         $usuario = $usuarioModel->find($_SESSION["loggedUser"]);
-
         $fechaPedido = DateTime::createFromFormat("Y-m-d", $fecha);
+        $usuariosRealiza = $realiza_usuarioModel->findAll();
+        $pedidos = $pedidoModel->findAll();
 
 
-        var_dump($realizaUsuario);
-        var_dump($usuario);
+        $numeroId = end($usuariosRealiza);
+        $numeroPedidoId = end($pedidos);
+
+
 
         if (empty($errors)) {
             try {
-                $pedidoModel = App::getModel(PedidoModel::class);
-                $pedido = new Pedido();
+
+                //Insercion en la tabla realiza
+
                 $realiza = new Realiza();
-
-
                 $realiza->setUSUARIOId($usuario->getId());
                 $realiza_usuarioModel->save($realiza);
+                App::get(MyLogger::class)->info("Se ha registrado un usuario que realiza un pedido");
 
+                //Insercion en la tabla pedido
 
+                $pedido = new Pedido();
                 $pedido->setPrecio($totalCart);
                 $pedido->setEstado($estado);
                 $pedido->setFechaPedido($fechaPedido);
-                $pedido->setRealizaId($realiza->getId());
-                $pedido->setREALIZAUSUARIOId($realizaUsuario->getUSUARIOId());
+                $pedido->setRealizaId($numeroId->getId());
+                $pedido->setREALIZAUSUARIOId($usuario->getId());
 
                 $pedidoModel->save($pedido);
-
                 App::get(MyLogger::class)->info("Se ha creado un nuevo pedido");
+
+                //Insercion tabla contiene
+
+
+                foreach($cartProducts as $product){
+
+                    $contienePro = $contieneModel->findAll();
+
+                    $numeroIdcontienePro = end($contienePro);
+                    $contiene = new Contiene();
+
+                    $contiene->setId($numeroIdcontienePro->getId() + 1);
+                    $contiene->setPedidoId($numeroPedidoId->getId());
+                    $contiene->setProductoId($product->getId());
+                    $contieneModel->save($contiene);
+
+                    App::get(MyLogger::class)->info("Se han guardado los productos en el pedido");
+
+
+                }
+
+                //Borrar los productos del carrito
+
+                unset($_SESSION);
+                session_unset();
 
             } catch (PDOException | ModelException | Exception $e) {
                 $errors[] = "Error: " . $e->getMessage();
             }
         }
 
-        if (!empty($errors)) {
+        if (empty($errors)) {
+
+            App::get('flash')->set("message", "El pedido se ha creado correctamente");
+            $message = "El pedido se ha creado correctamente";
+
+
+        } else {
 
             var_dump($errors);
+            App::get('flash')->set("message", "No se ha podido registrar el pedido");
+            $message = "No se ha podido registrar el pedido";
+
         }
 
         return $this->response->renderView("auth/login", "my", compact(
-            "errors"));
+            "errors", "message"));
 
     }
 

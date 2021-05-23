@@ -23,6 +23,8 @@ session_start();
 
 $sessionKey = "error";
 
+
+
 $errors = $_SESSION[$sessionKey]??[];
 
 

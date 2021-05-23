@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `contiene` (
+  `id` int(11) NOT NULL,
   `PRODUCTO_id` int(11) NOT NULL,
   `PEDIDO_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -36,10 +37,10 @@ CREATE TABLE `contiene` (
 -- Volcado de datos para la tabla `contiene`
 --
 
-INSERT INTO `contiene` (`PRODUCTO_id`, `PEDIDO_id`) VALUES
-(1, 1),
-(2, 1),
-(2, 2);
+INSERT INTO `contiene` (`id`, `PRODUCTO_id`, `PEDIDO_id`) VALUES
+(1, 1, 1),
+(2, 1, 1),
+(2, 2, 2);
 
 -- --------------------------------------------------------
 

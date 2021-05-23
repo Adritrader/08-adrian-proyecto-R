@@ -8,8 +8,26 @@ use JsonSerializable;
 
 class Contiene implements Entity, JsonSerializable {
 
+    private ?int $id = null;
     private int $producto_id;
     private int $pedido_id;
+
+    /**
+     * @return null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param null $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * @return mixed
@@ -46,7 +64,9 @@ class Contiene implements Entity, JsonSerializable {
     public function toArray(): array
     {
         return [
-            "predido_id"=>$this->getPedidoId(),
+
+            "id"=>$this->getId(),
+            "pedido_id"=>$this->getPedidoId(),
             "producto_id"=>$this->getProductoId()
         ];
     }

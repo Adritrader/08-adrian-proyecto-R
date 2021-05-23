@@ -10,7 +10,7 @@ use PDO;
 
 class ContieneModel extends Model
 {
-    public function __construct(PDO $pdo, string $tableName = "contiene", string $className = Contiene::class)
+    public function __construct(PDO $pdo, string $tableName = "contienePro", string $className = Contiene::class)
     {
         parent::__construct($pdo, $tableName, $className);
     }
