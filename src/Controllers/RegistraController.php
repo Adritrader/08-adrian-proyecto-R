@@ -170,6 +170,7 @@ class RegistraController extends Controller {
                 $registraModel->saveTransaction($registra);
                 App::get(MyLogger::class)->info("Se ha creado una nueva reserva");
                 App::get('flash')->set("message", "La reserva se ha creado correctamente");
+                $message = "La reserva se ha creado correctamente";
 
             } catch (PDOException | ModelException | Exception $e) {
                 $errors[] = "Error: " . $e->getMessage();
@@ -178,12 +179,13 @@ class RegistraController extends Controller {
 
         if (!empty($errors)) {
             App::get('flash')->set("message", "La reserva no se ha podido crear");
+            $message = "No se ha podido crear la reserva";
             App::get(Router::class)->redirect("login");
 
         }
 
         return $this->response->renderView("auth/login", "my", compact(
-             'errors'));
+             'errors', "message"));
     }
 
 }

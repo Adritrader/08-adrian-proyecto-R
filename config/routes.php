@@ -70,6 +70,7 @@ $router->get("pedidos/delete", "BackController", "deletePedido", [],"pedidos_del
 $router->get("usuarios", "UsuarioController", "index", [], "usuario_index", "ROLE_ADMIN");
 $router->post("usuarios", "UsuarioController", "filterUsuario", [], "usuario_filter", "ROLE_ADMIN");
 $router->get("perfil/:id/show", "UsuarioController", "perfilUsuario", ["id" => "number"], "usuario_show", "ROLE_USER");
+$router->get("perfil/:id/verReservas", "UsuarioController", "verReservas", ["id" => "number"], "usuario_reservas", "ROLE_USER");
 
 $router->get("usuarios/create", "UsuarioController", "createUsuario", [], "usuarios_create");
 $router->post("usuarios/create", "UsuarioController", "storeUsuario", [], "usuarios_store");

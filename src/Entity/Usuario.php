@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -17,8 +16,8 @@ class Usuario implements Entity, JsonSerializable {
     private string $email;
     private string $username;
     private string $password;
-    private ?string $avatar;
-    private ?string $role;
+    private string $avatar;
+    private string $role;
 
     /**
      * @return null
@@ -167,7 +166,7 @@ class Usuario implements Entity, JsonSerializable {
     }
 
 
-        public function toArray(): array
+    public function toArray(): array
     {
         return [
             "id"=>$this->getId(),

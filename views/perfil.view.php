@@ -11,15 +11,18 @@ use App\Entity\Usuario;
 <div class="container">
     <h1>Perfil de usuario</h1>
     <div class="row d-flex justify-content-center">
-        <div class="col-10 ml-5">
-        </div>
+
 
     </div>
     <div class="row py-2 px-2 mx-2">
+        <div class="col-12">
+            <a href="/perfil/<?= $user->getId() ?>/verReservas"><button class="btn bg-danger px-2"><i class="fa fa-edit mr-1"></i>Ver Reservas</button></a>
+            <a href="/perfil/<?= $user->getId() ?>/verPedidos"><button class="btn bg-danger"><i class="fa fa-edit mr-1"></i>Ver Pedidos</button></a>
+        </div>
 
         <div class="card col-lg-9 col-md-6 py-2">
             <div class="card col-lg-3 col-md-6 py-2">
-                <?= generar_imagen_local('/' . Usuario::AVATAR_PATH . '/', $user->getAvatar(),
+                <?= generar_imagen_local('/' . Usuario::AVATAR_PATH, $user->getAvatar(),
                     $user->getUsername(), 300,200) ?>
             </div>
             <input type="hidden" name="id" value="<?= $user->getId() ?>">
@@ -29,11 +32,12 @@ use App\Entity\Usuario;
             <h2 class="text-muted mt-2"><strong>Email:</strong><?= $user->getEmail()?></h2>
             <h2><strong>Teléfono:</strong> <?= $user->getTelefono()?></h2>
 
+        </div>
+
 
         <div class="col-12">
             <a href="/usuarios/<?= $user->getId() ?>/editPerfil"><button class="btn bg-danger px-2"><i class="fa fa-edit mr-1"></i>Editar</button></a>
             <a href="/usuarios/<?= $user->getId() ?>/editPass"><button class="btn bg-danger"><i class="fa fa-edit mr-1"></i>Cambiar Password</button></a>
-            <a href="<?= $router->getUrl("usuarios_delete", ["id" => $user->getId()]) ?>"><button class="btn btn-info mt-2 bg-danger"><i class="fa fa-trash mr-1"></i>Borrar Cuenta</button></a>
         </div>
         </div>
     </div>

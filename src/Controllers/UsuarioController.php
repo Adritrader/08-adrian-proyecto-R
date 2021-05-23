@@ -13,6 +13,8 @@ use App\Entity\Producto;
 use App\Entity\Usuario;
 use App\Core\App;
 use App\Model\producteModel;
+use App\Model\RegistraModel;
+use App\Model\ServicioModel;
 use App\Model\UserModel;
 use App\Model\UsuarioModel;
 use App\Utils\MyLogger;
@@ -149,15 +151,10 @@ public function createUsuario(): string
     {
         $errors = [];
 
-        //Modificaciones recuperación
-
-        $user = new Usuario();
-        $userModel = new UsuarioModel(Database::getConnection());
-
 
         $nombre = filter_input(INPUT_POST, "nombre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $apellidos = filter_input(INPUT_POST, "apellidos", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $telefono = filter_input(INPUT_POST, "telefono", FILTER_VALIDATE_INT);
+        $telefono = filter_input(INPUT_POST, "telefono", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
         $username = filter_input(INPUT_POST, "username");
         $password = filter_input(INPUT_POST, "password");
@@ -192,11 +189,10 @@ public function createUsuario(): string
             $errors[] = "Debe repetir el password";
         }
 
-        if($repitePassword !== $password) {
+        if($repitePassword !== $password){
 
             $errors[] = "Debe introcir el mismo password";
         }
-
 
         // Si hay errores no necesitamos subir la imagen
         if (empty($errors)) {
@@ -216,12 +212,8 @@ public function createUsuario(): string
 
 
             try {
-
-                session_start();
-
                 $usuarioModel = App::getModel(UsuarioModel::class);
                 $usuario = new Usuario();
-
 
                 $usuario->setNombre($nombre);
                 $usuario->setApellidos($apellidos);
@@ -234,8 +226,7 @@ public function createUsuario(): string
 
 
 
-
-                $usuarioModel->saveTransaction($user);
+                $usuarioModel->saveTransaction($usuario);
                 App::get(MyLogger::class)->info("Se ha creado un nuevo usuario");
 
             } catch (PDOException | ModelException | Exception $e) {
@@ -245,12 +236,11 @@ public function createUsuario(): string
 
         if (empty($errors)) {
             App::get('flash')->set("message", "Se ha registrado correctamente");
-            App::get('logger')->set("comment", "Se ha registrado correctamente");
             App::get(Router::class)->redirect("login");
         }
 
         return $this->response->renderView("auth/login", "my", compact(
-            "errors"));
+            "errors", "nombre"));
     }
 
     public function registrarUsuario(): string
@@ -259,7 +249,7 @@ public function createUsuario(): string
 
         $nombre = filter_input(INPUT_POST, "nombre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $apellidos = filter_input(INPUT_POST, "apellidos", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $telefono = filter_input(INPUT_POST, "telefono", FILTER_VALIDATE_INT);
+        $telefono = filter_input(INPUT_POST, "telefono", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
         $username = filter_input(INPUT_POST, "username");
         $password = filter_input(INPUT_POST, "password");
@@ -300,6 +290,7 @@ public function createUsuario(): string
 
         $password = App::get("security")->encode($password);
 
+
         if (empty($errors)) {
             try {
                 $usuarioModel = App::getModel(UsuarioModel::class);
@@ -313,7 +304,9 @@ public function createUsuario(): string
                 $usuario->setPassword($password);
                 $usuario->setRole("ROLE_USER");
 
-                $usuarioModel->saveTransaction($usuario);
+                var_dump($usuario);
+
+                $usuarioModel->save($usuario);
                 App::get(MyLogger::class)->info("Se ha registrado un nuevo usuario");
 
             } catch (PDOException | ModelException | Exception $e) {
@@ -825,5 +818,41 @@ public function createUsuario(): string
                 compact("errors", "usuario"));
 
         return "";
+    }
+
+    public function verReservas(int $id){
+
+        $title = "Perfil | Reservas";
+        $errors = [];
+        $registraModel = App::getModel(RegistraModel::class);
+        $registra = $registraModel->find($id);
+
+        var_dump($registra);
+
+        $servicioModel = App::getModel(ServicioModel::class);
+        $servicios = $servicioModel->findAll();
+
+        $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
+
+        if (!empty($_GET['order'])) {
+            $orderBy = [$_GET["order"] => $_GET["tipo"]];
+            try {
+                $registra = $registraModel->findAll($orderBy);
+            } catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        $router = App::get(Router::class);
+
+        $message = App::get("flash")::get("message");
+
+
+        return $this->response->renderView("reservasUser", "my", compact('title','id', 'registra', "servicios",
+            'registraModel', 'errors', 'router', 'message'));
+
+
+
+
     }
 }

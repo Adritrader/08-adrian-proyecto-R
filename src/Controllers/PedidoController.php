@@ -167,6 +167,12 @@ class PedidoController extends Controller
                 $realiza_usuarioModel->save($realiza);
                 App::get(MyLogger::class)->info("Se ha registrado un usuario que realiza un pedido");
 
+            } catch (PDOException | ModelException | Exception $e) {
+                $errors[] = "Error: " . $e->getMessage();
+            }
+
+            try {
+
                 //Insercion en la tabla pedido
 
                 $pedido = new Pedido();
@@ -179,6 +185,11 @@ class PedidoController extends Controller
                 $pedidoModel->save($pedido);
                 App::get(MyLogger::class)->info("Se ha creado un nuevo pedido");
 
+            } catch (PDOException | ModelException | Exception $e) {
+                $errors[] = "Error: " . $e->getMessage();
+            }
+
+            try {
                 //Insercion tabla contiene
 
 
@@ -196,13 +207,12 @@ class PedidoController extends Controller
 
                     App::get(MyLogger::class)->info("Se han guardado los productos en el pedido");
 
-
                 }
 
                 //Borrar los productos del carrito
 
-                unset($_SESSION);
-                session_unset();
+                unset($_SESSION["shoppingCart"]);
+                unset($_SESSION["totalCart"]);
 
             } catch (PDOException | ModelException | Exception $e) {
                 $errors[] = "Error: " . $e->getMessage();

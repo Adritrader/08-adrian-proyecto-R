@@ -37,6 +37,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
     header("Location: /login");
 
 }
+
 $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
 $config = require_once __DIR__ . '/../config/config.php';

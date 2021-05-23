@@ -56,16 +56,20 @@ class AuthController extends Controller
 
 
         }
-        App::get('flash')->set("message", "No s'ha pogut iniciar sessió");
+        App::get('flash')->set("message", "No se ha podido iniciar sesion");
         App::get("redirect")->redirect("login");
     }
 
     public function logout()
     {
+
+
         session_unset();
         unset($_SESSION);
         session_destroy();
         setcookie(session_name());
-        App::get(Router::class)->redirect("");
+        $message = "Se ha desconectado";
+        return $this->response->renderView('auth/login', 'my', compact('message'));
+
     }
 }
