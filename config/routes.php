@@ -6,6 +6,13 @@ $router->get("contact", "DefaultController", "contact");
 $router->post("contact", "DefaultController", "contact");
 $router->get("api/demo", "DefaultController", "demo");
 
+/* API Routes */
+
+$router->post("api/v1/productos", "ApiController", "index");
+$router->get("api/v1/productos", "ApiController", "index");
+$router->get("api/v1/productos/:id", "ApiController", "showProducto", ["id" => "number"]);
+
+
 /* My routes Front-End */
 $router->get("", "MyController", "index");
 $router->get("servicios", "MyController", "servicios");

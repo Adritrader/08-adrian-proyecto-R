@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Core;
 
 
-use App\Entity\Usuario;
+use App\Entity\Producto;
+
 
 class Response
 {
@@ -15,7 +16,7 @@ class Response
      * @param array $data
      * @return string
      */
-    public function renderView(string $view, string $layout = 'default', array $data = []): string {
+    public function renderView(string $view, string $layout = 'my', array $data = []): string {
 
         //var_dump($data);
         extract($data);
@@ -35,7 +36,18 @@ class Response
      * @param mixed $element
      * @return string
      */
-    public function jsonResponse(mixed $element): string
+    public function jsonResponse(array $element): string
+    {
+        header('Content-Type: application/json; charset=UTF-8');
+        return json_encode($element);
+
+    }
+
+    /**
+     * @param mixed $element
+     * @return string
+     */
+    public function jsonResponse2(Producto $element): string
     {
         header('Content-Type: application/json; charset=UTF-8');
         return json_encode($element);

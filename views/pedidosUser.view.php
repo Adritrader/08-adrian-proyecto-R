@@ -62,10 +62,7 @@
                         <td style="font-size: 12px !important; padding-left: 65px !important;"><?= $pedido->getFechaPedido()->format("Y-m-d") ?></td>
                         <td style="font-size: 12px !important; padding-left: 90px !important;"><?= $pedido->getEstado() ?></td>
                         <td style="font-size: 12px !important; padding-left: 120px !important;"><a href="/pedidos/<?= $pedido->getId() ?>/edit">
-                                <button type="button" class="button-four"><i class="fa fa-edit"></i>Editar</button>
-                            </a>
-                            <a href="/pedidos/<?= $pedido->getId() ?>/delete">
-                                <button type="button" class="button-four"><i class="fa fa-trash"></i>Borrar</button>
+                                <button type="button" class="button-four"><i class="fa fa-edit"></i>Ver Pedido</button>
                             </a>
 
                         </td>

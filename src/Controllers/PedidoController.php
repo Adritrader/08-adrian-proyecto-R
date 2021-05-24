@@ -211,8 +211,7 @@ class PedidoController extends Controller
 
                 //Borrar los productos del carrito
 
-                unset($_SESSION["shoppingCart"]);
-                unset($_SESSION["totalCart"]);
+
 
             } catch (PDOException | ModelException | Exception $e) {
                 $errors[] = "Error: " . $e->getMessage();
@@ -223,6 +222,8 @@ class PedidoController extends Controller
 
             App::get('flash')->set("message", "El pedido se ha creado correctamente");
             $message = "El pedido se ha creado correctamente";
+            unset($_SESSION["shoppingCart"]);
+            unset($_SESSION["totalCart"]);
 
 
         } else {
