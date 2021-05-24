@@ -16,8 +16,8 @@ use App\Entity\Usuario;
     </div>
     <div class="row py-2 px-2 mx-2">
         <div class="col-12">
-            <a href="/perfil/<?= $user->getId() ?>/verReservas"><button class="btn bg-danger px-2"><i class="fa fa-edit mr-1"></i>Ver Reservas</button></a>
-            <a href="/perfil/<?= $user->getId() ?>/verPedidos"><button class="btn bg-danger"><i class="fa fa-edit mr-1"></i>Ver Pedidos</button></a>
+            <a href="/perfil/<?= $user->getId() ?>/verReservas"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Reservas</button></a>
+            <a href="/perfil/<?= $user->getId() ?>/verPedidos"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Pedidos</button></a>
         </div>
 
         <div class="card col-lg-9 col-md-6 py-2">
@@ -36,8 +36,8 @@ use App\Entity\Usuario;
 
 
         <div class="col-12">
-            <a href="/usuarios/<?= $user->getId() ?>/editPerfil"><button class="btn bg-danger px-2"><i class="fa fa-edit mr-1"></i>Editar</button></a>
-            <a href="/usuarios/<?= $user->getId() ?>/editPass"><button class="btn bg-danger"><i class="fa fa-edit mr-1"></i>Cambiar Password</button></a>
+            <a href="/usuarios/<?= $user->getId() ?>/editPerfil"><button class="button-five"><i class="fa fa-edit mr-1"></i>Editar</button></a>
+            <a href="/usuarios/<?= $user->getId() ?>/editPass"><button class="button-five"><i class="fa fa-edit mr-1"></i>Cambiar Password</button></a>
         </div>
         </div>
     </div>

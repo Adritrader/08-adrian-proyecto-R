@@ -15,6 +15,7 @@ use App\Core\App;
 use App\Model\ContieneModel;
 use App\Model\PedidoModel;
 use App\Model\producteModel;
+use App\Model\ProductoModel;
 use App\Model\RealizaModel;
 use App\Model\RegistraModel;
 use App\Model\ServicioModel;
@@ -864,6 +865,33 @@ public function createUsuario(): string
         $title = "Pedidos";
         $errors = [];
 
+
+            $pedidoModel = App::getModel(PedidoModel::class);
+            $pedido = $pedidoModel->findAll();
+
+            $pdo = App::get("DB");
+
+            $numberOfRecordsPerPage = 8;
+
+
+            $consulta = $pdo->query("SELECT COUNT(*) as total_pedidos FROM pedido");
+
+            $pedidos = $consulta->fetch();
+
+
+            $totalPaginas = $pedidos["total_pedidos"];
+
+            $totalPaginas = ceil($totalPaginas /$numberOfRecordsPerPage);
+
+            $currentPage = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
+            if (empty($currentPage))
+                $currentPage = 1;
+
+            $limit = $numberOfRecordsPerPage;
+
+            $pedidos = $pedidoModel->findAllPaginated($currentPage, $limit);
+
+
         $pedidoModel = App::getModel(PedidoModel::class)->findBy(["REALIZA_USUARIO_id" => $id]);
         $realiza_usuarioModel = App::getModel( RealizaModel::class)->findBy(["USUARIO_id" => $id]);
         $contieneModel = App::getModel(ContieneModel::class)->findBy(["id" => $id]);
@@ -885,7 +913,7 @@ public function createUsuario(): string
         $message = App::get("flash")::get("message");
 
         return $this->response->renderView("pedidosUser", "my", compact('title', 'id',
-            'pedidoModel', 'realiza_usuarioModel','contieneModel', 'errors', 'router', 'message'));
+            'pedidoModel', 'realiza_usuarioModel','contieneModel', 'errors', 'totalPaginas', 'router', 'message', 'pedido', 'pedidos'));
     }
 
 

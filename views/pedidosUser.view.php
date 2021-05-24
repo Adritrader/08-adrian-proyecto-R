@@ -1,11 +1,10 @@
-<a style="padding: 20px !important;" href="../<?=$id?>/show">
+<div class="container-fluid"><a style="padding: 20px !important;" href="../<?= $id ?>/show">
     <button type="button" class="btn"><i class="fas fa-chevron-circle-left"></i>Atrás</button>
 </a>
-<div class="container-fluid">
+<div class="container">
     <div class="row fila-inputs-productos">
-        <div class="col-4">
-            <form method="post" action="<?php use App\Entity\Pedido;
-            $_SERVER["PHP_SELF"]; ?>"
+        <div class="col-12">
+            <form method="post" action="<?php $_SERVER["PHP_SELF"]; ?>"
                   class="form-inline">
                 <div class="form-group">
                     <input name="text" id="text" value="<?= ($_POST["text"]) ?? "" ?>"
@@ -29,10 +28,12 @@
                             <input class="form-check-input" type="radio" name="optradio" id="both" value="both" checked>&nbsp;Ambos
                             &nbsp;
                         </label>
-                    </div></div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group">
-                        <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit" name="botonFiltrar">
+                        <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit"
+                                name="botonFiltrar">
                             Buscar
                         </button>
                     </div>
@@ -41,43 +42,77 @@
         </div>
         <p><?= $error ?? "" ?></p>
     </div>
-    <div class="container">
+    <div class="container-fluid" >
         <div class="row">
-                <?php if (empty($pedidoModel)) : ?>
-                    <h3>No se ha encontrado ningun pedido</h3>
-                <?php else: ?>
+            <?php if (empty($pedidoModel)) : ?>
+                <h3>No se ha encontrado ningun pedido</h3>
+            <?php else: ?>
 
-                    <table style="border: 2px solid black !important; width: 680px">
-                        <tr>
-                            <th>Precio</th>
-                            <th>Fecha pedido</th>
-                            <th>Estado</th>
-                            <th>REALIZA_id</th>
-                            <th>REALIZA_USUARIO_id</th>
-                            <th>Acciones</th>
-                        </tr>
+            <table style="border: 2px solid black !important; width: 900px; max-height: 800px !important;">
+                <tr>
+                    <th>Precio</th>
+                    <th>Fecha pedido</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
 
-                        <?php foreach ($pedidoModel as $pedido) { ?>
-                            <tr>
-                                <td><?= $pedido->getPrecio() ?></td>
-                                <td><?= $pedido->getFechaPedido()->format("Y-m-d")?></td>
-                                <td><?= $pedido->getEstado() ?></td>
-                                <td><?= $pedido->getREALIZAid() ?></td>
-                                <td><?= $pedido->getREALIZAUSUARIOId()?></td>
-                                <td><a href="/pedidos/<?= $pedido->getId() ?>/edit">
-                                        <button type="button" class="button-two"><i class="fa fa-edit"></i>Editar</button>
-                                    </a>
-                                    <a href="/pedidos/<?= $pedido->getId() ?>/delete">
-                                        <button type="button" class="button-two"><i class="fa fa-trash"></i>Borrar</button>
-                                    </a>
+                <?php foreach ($pedidoModel as $pedido) { ?>
+                    <tr>
+                        <td style="font-size: 12px !important; padding-left: 30px !important;"><?= $pedido->getPrecio() ?></td>
+                        <td style="font-size: 12px !important; padding-left: 65px !important;"><?= $pedido->getFechaPedido()->format("Y-m-d") ?></td>
+                        <td style="font-size: 12px !important; padding-left: 90px !important;"><?= $pedido->getEstado() ?></td>
+                        <td style="font-size: 12px !important; padding-left: 120px !important;"><a href="/pedidos/<?= $pedido->getId() ?>/edit">
+                                <button type="button" class="button-four"><i class="fa fa-edit"></i>Editar</button>
+                            </a>
+                            <a href="/pedidos/<?= $pedido->getId() ?>/delete">
+                                <button type="button" class="button-four"><i class="fa fa-trash"></i>Borrar</button>
+                            </a>
 
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                    </table>
-                <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </table>
+
         </div>
     </div>
+
+    <nav aria-label="Page navigation example" style="padding: 20px">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <?php
+
+            for ($i = 1; $i <= $totalPaginas; $i++) {
+
+                ?>
+                <li class="page-item"><a class="page-link"
+                                         href="<?= $router->getUrl("usuario_pedidos", ["page" => $i]) ?>"><?= $i ?></a>
+                </li>
+                <?php
+            } ?>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <?php endif; ?>
+
+
 </div>
+</div>
+<style>
+    footer {
+
+        margin-top: 2250px !important;
+
+    }
+</style>
