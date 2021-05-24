@@ -1,1 +1,83 @@
-<?php
+<a style="padding: 20px !important;" href="../<?=$id?>/show">
+    <button type="button" class="btn"><i class="fas fa-chevron-circle-left"></i>Atrás</button>
+</a>
+<div class="container-fluid">
+    <div class="row fila-inputs-productos">
+        <div class="col-4">
+            <form method="post" action="<?php use App\Entity\Pedido;
+            $_SERVER["PHP_SELF"]; ?>"
+                  class="form-inline">
+                <div class="form-group">
+                    <input name="text" id="text" value="<?= ($_POST["text"]) ?? "" ?>"
+                           type="text" placeholder="Buscar" aria-label="Search">
+                </div>
+
+                <div class="row">
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="optradio" id="estado" value="estado">&nbsp;Estado
+                            &nbsp;
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="optradio" id="precio" value="precio">&nbsp;Precio
+                            &nbsp;
+                        </label></div>
+                    <div class="form-check-inline">
+                        <label class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="optradio" id="both" value="both" checked>&nbsp;Ambos
+                            &nbsp;
+                        </label>
+                    </div></div>
+                <div class="row">
+                    <div class="form-group">
+                        <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit" name="botonFiltrar">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <p><?= $error ?? "" ?></p>
+    </div>
+    <div class="container">
+        <div class="row">
+                <?php if (empty($pedidoModel)) : ?>
+                    <h3>No se ha encontrado ningun pedido</h3>
+                <?php else: ?>
+
+                    <table style="border: 2px solid black !important; width: 680px">
+                        <tr>
+                            <th>Precio</th>
+                            <th>Fecha pedido</th>
+                            <th>Estado</th>
+                            <th>REALIZA_id</th>
+                            <th>REALIZA_USUARIO_id</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                        <?php foreach ($pedidoModel as $pedido) { ?>
+                            <tr>
+                                <td><?= $pedido->getPrecio() ?></td>
+                                <td><?= $pedido->getFechaPedido()->format("Y-m-d")?></td>
+                                <td><?= $pedido->getEstado() ?></td>
+                                <td><?= $pedido->getREALIZAid() ?></td>
+                                <td><?= $pedido->getREALIZAUSUARIOId()?></td>
+                                <td><a href="/pedidos/<?= $pedido->getId() ?>/edit">
+                                        <button type="button" class="button-two"><i class="fa fa-edit"></i>Editar</button>
+                                    </a>
+                                    <a href="/pedidos/<?= $pedido->getId() ?>/delete">
+                                        <button type="button" class="button-two"><i class="fa fa-trash"></i>Borrar</button>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                <?php endif; ?>
+        </div>
+    </div>
+</div>

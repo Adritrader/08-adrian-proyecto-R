@@ -12,7 +12,10 @@ use App\Database;
 use App\Entity\Producto;
 use App\Entity\Usuario;
 use App\Core\App;
+use App\Model\ContieneModel;
+use App\Model\PedidoModel;
 use App\Model\producteModel;
+use App\Model\RealizaModel;
 use App\Model\RegistraModel;
 use App\Model\ServicioModel;
 use App\Model\UserModel;
@@ -825,12 +828,12 @@ public function createUsuario(): string
         $title = "Perfil | Reservas";
         $errors = [];
         $registraModel = App::getModel(RegistraModel::class);
-        $registra = $registraModel->find($id);
+        $registra = $registraModel->findBy(["USUARIO_id" => $id]);
 
-        var_dump($registra);
 
-        $servicioModel = App::getModel(ServicioModel::class);
-        $servicios = $servicioModel->findAll();
+        $servicioModel = App::getModel(ServicioModel::class)->findBy(["id" => $id]);
+
+
 
         $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
 
@@ -848,11 +851,42 @@ public function createUsuario(): string
         $message = App::get("flash")::get("message");
 
 
-        return $this->response->renderView("reservasUser", "my", compact('title','id', 'registra', "servicios",
+        return $this->response->renderView("reservasUser", "my", compact('title','id','registra', 'servicioModel',
             'registraModel', 'errors', 'router', 'message'));
 
 
 
 
     }
+
+    public function verPedidos(int $id){
+
+        $title = "Pedidos";
+        $errors = [];
+
+        $pedidoModel = App::getModel(PedidoModel::class)->findBy(["REALIZA_USUARIO_id" => $id]);
+        $realiza_usuarioModel = App::getModel( RealizaModel::class)->findBy(["USUARIO_id" => $id]);
+        $contieneModel = App::getModel(ContieneModel::class)->findBy(["id" => $id]);
+
+
+        $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
+
+        if (!empty($_GET['order'])) {
+            $orderBy = [$_GET["order"] => $_GET["tipo"]];
+            try {
+                $realizaUsuario = $realiza_usuarioModel->findAll($orderBy);
+
+            } catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+        $router = App::get(Router::class);
+
+        $message = App::get("flash")::get("message");
+
+        return $this->response->renderView("pedidosUser", "my", compact('title', 'id',
+            'pedidoModel', 'realiza_usuarioModel','contieneModel', 'errors', 'router', 'message'));
+    }
+
+
 }

@@ -18,18 +18,26 @@
             <div class="col-12 col-header">
                 <div class="container-fluid headerContainer">
                     <div class="row fila-header">
+
                         <div class="col-2 header-logo">
                             <a href="/back-index"><img class="logo" src="/images/design/logo-bueno.png"
                                                               alt="logo"></a>
+
                         </div>
+
                         <div class="col-1 navbar iconos-header">
                             <a href="#"><i class="far fa-envelope"></i></a>
                             <a href="#"><i class="far fa-bell"></i></a>
 
+
                         </div>
 
-                        <div class="col-6">
-
+                        <div class="col-6 mt-5">
+                            <div style="margin-top: 205px !important;">
+                                <a href="../">
+                                    <button type="button" class="btn"><i class="fas fa-home"></i>Home</button>
+                                </a>
+                            </div>
 
                         </div>
                         <div class="col-3">

@@ -1315,7 +1315,8 @@ table.shoping-cart-table tr td:last-child {
   padding: 10px 15px;
 }
 
-body{margin-top:20px;
+body{
+
   background:#eee;
 }
 h3 {
@@ -1408,3 +1409,4 @@ table.shoping-cart-table tr td:last-child {
   background: #ffffff;
   padding: 10px 15px;
 }
+

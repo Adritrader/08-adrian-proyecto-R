@@ -71,6 +71,7 @@ $router->get("usuarios", "UsuarioController", "index", [], "usuario_index", "ROL
 $router->post("usuarios", "UsuarioController", "filterUsuario", [], "usuario_filter", "ROLE_ADMIN");
 $router->get("perfil/:id/show", "UsuarioController", "perfilUsuario", ["id" => "number"], "usuario_show", "ROLE_USER");
 $router->get("perfil/:id/verReservas", "UsuarioController", "verReservas", ["id" => "number"], "usuario_reservas", "ROLE_USER");
+$router->get("perfil/:id/verPedidos", "UsuarioController", "verPedidos", ["id" => "number"], "usuario_pedidos", "ROLE_USER");
 
 $router->get("usuarios/create", "UsuarioController", "createUsuario", [], "usuarios_create");
 $router->post("usuarios/create", "UsuarioController", "storeUsuario", [], "usuarios_store");

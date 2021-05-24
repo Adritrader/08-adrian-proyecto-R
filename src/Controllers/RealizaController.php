@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Exception\ModelException;
 use App\Core\Exception\NotFoundException;
 use App\Core\Router;
+use App\Entity\Pedido;
 use App\Exception\UploadedFileException;
 use App\Exception\UploadedFileNoFileException;
 use App\Core\App;
@@ -79,7 +80,7 @@ class RealizaController extends Controller
 
         if (!empty($text)) {
 
-            $pedidoModel = App::getModel(MovieModel::class);
+            $pedidoModel = App::getModel(PedidoModel::class);
             if ($tipo_busqueda == "both") {
                 $pedido = $pedidoModel->executeQuery("SELECT * FROM pedido WHERE precio LIKE :text OR estado LIKE :text",
                     ["text" => "%$text%"]);
