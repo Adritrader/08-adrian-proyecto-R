@@ -37,13 +37,13 @@ $router->post("logout", "AuthController", "checkLogin");
 
 /* BackOffice routes */
 
-$router->get("back-index", "BackController", "backIndex");
-$router->get("back-reservas", "BackController", "backReservas");
-$router->get("back-galeria", "BackController", "backGaleria");
-$router->get("back-blog", "BackController", "backBlog");
-$router->get("back-productos", "BackController", "backProductos");
+$router->get("back-index", "BackController", "backIndex", [], "back_index", "ROLE_ADMIN");
+$router->get("back-reservas", "BackController", "backReservas",  [], "back_reservas", "ROLE_ADMIN");
+$router->get("back-galeria", "BackController", "backGaleria",  [], "back_galeria", "ROLE_ADMIN");
+$router->get("back-blog", "BackController", "backBlog",  [], "back_blog", "ROLE_ADMIN");
+$router->get("back-productos", "BackController", "backProductos",  [], "back_productos", "ROLE_ADMIN");
 //$router->get("back-pedidos", "BackController", "backPedidos");
-$router->get("back-usuarios", "BackController", "backUsuarios");
+$router->get("back-usuarios", "BackController", "backUsuarios",  [], "back_usuarios", "ROLE_ADMIN");
 
 
 /*BackOffice Productos routes*/
@@ -76,6 +76,7 @@ $router->get("pedidos/delete", "BackController", "deletePedido", [],"pedidos_del
 
 $router->get("usuarios", "UsuarioController", "index", [], "usuario_index", "ROLE_ADMIN");
 $router->post("usuarios", "UsuarioController", "filterUsuario", [], "usuario_filter", "ROLE_ADMIN");
+$router->post("perfil/:id/verPedidos", "UsuarioController", "filterPedidoUsuario", ["id" => "number"], "pedido_filter", "ROLE_USER");
 $router->get("perfil/:id/show", "UsuarioController", "perfilUsuario", ["id" => "number"], "usuario_show", "ROLE_USER");
 $router->get("perfil/:id/verReservas", "UsuarioController", "verReservas", ["id" => "number"], "usuario_reservas", "ROLE_USER");
 $router->get("perfil/:id/verPedidos", "UsuarioController", "verPedidos", ["id" => "number"], "usuario_pedidos", "ROLE_USER");

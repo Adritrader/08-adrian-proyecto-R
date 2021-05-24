@@ -86,7 +86,7 @@ class UsuarioController extends Controller
         }*/
 
 
-        return $this->response->renderView("perfil", "my", compact( 'user', 'errors', 'router' ));
+        return $this->response->renderView("perfil", "my", compact('user', 'errors', 'router'));
     }
 
     /**
@@ -135,16 +135,14 @@ class UsuarioController extends Controller
             'usuarioModel', 'errors', 'router'));
     }
 
-public function createUsuario(): string
-{
+    public function createUsuario(): string
+    {
 
-    $title = "SignUp";
-    $router = App::get(Router::class);
+        $title = "SignUp";
+        $router = App::get(Router::class);
 
-    return $this->response->renderView("usuarios-create-form", "my", compact('title', 'router'));
-}
-
-
+        return $this->response->renderView("usuarios-create-form", "my", compact('title', 'router'));
+    }
 
 
     /**
@@ -188,12 +186,12 @@ public function createUsuario(): string
             $errors[] = "El password es obligtorio";
         }
 
-        if(empty($repitePassword)){
+        if (empty($repitePassword)) {
 
             $errors[] = "Debe repetir el password";
         }
 
-        if($repitePassword !== $password){
+        if ($repitePassword !== $password) {
 
             $errors[] = "Debe introcir el mismo password";
         }
@@ -216,6 +214,7 @@ public function createUsuario(): string
 
 
             try {
+
                 $usuarioModel = App::getModel(UsuarioModel::class);
                 $usuario = new Usuario();
 
@@ -227,7 +226,6 @@ public function createUsuario(): string
                 $usuario->setPassword($password);
                 $usuario->setAvatar($avatar);
                 $usuario->setRole("ROLE_USER");
-
 
 
                 $usuarioModel->saveTransaction($usuario);
@@ -282,12 +280,12 @@ public function createUsuario(): string
             $errors[] = "El password es obligtorio";
         }
 
-        if(empty($repitePassword)){
+        if (empty($repitePassword)) {
 
             $errors[] = "Debe repetir el password";
         }
 
-        if($repitePassword !== $password){
+        if ($repitePassword !== $password) {
 
             $errors[] = "Debe introcir el mismo password";
         }
@@ -413,7 +411,6 @@ public function createUsuario(): string
         return $this->response->renderView("usuarios-edit-back", "back", compact(
             "errors", "isGetMethod", "usuario"));
     }
-
 
 
     public function editUsuario(int $id): string
@@ -600,7 +597,7 @@ public function createUsuario(): string
             $errors[] = "El username es obligatorio";
         }
 
-        if(!empty($user) && $user->getRole() === "ROLE_ADMIN") {
+        if (!empty($user) && $user->getRole() === "ROLE_ADMIN") {
             if (empty($role)) {
                 $errors[] = "El rol es obligatorio";
             } else {
@@ -634,7 +631,7 @@ public function createUsuario(): string
                 $usuario->setEmail($email);
                 $usuario->setUsername($username);
                 $usuario->setAvatar($avatar);
-                if(!empty($user) && $user->getRole() === "ROLE_ADMIN") {
+                if (!empty($user) && $user->getRole() === "ROLE_ADMIN") {
                     $usuario->setRole($role);
                 }
 
@@ -677,12 +674,12 @@ public function createUsuario(): string
                 $errors[] = "El password es obligtorio";
             }
 
-            if(empty($repitePassword)){
+            if (empty($repitePassword)) {
 
                 $errors[] = "Debe repetir el password";
             }
 
-            if($repitePassword !== $password){
+            if ($repitePassword !== $password) {
 
                 $errors[] = "Debe introcir el mismo password";
             }
@@ -720,16 +717,15 @@ public function createUsuario(): string
             $errors[] = "El password es obligtorio";
         }
 
-        if(empty($repitePassword)){
+        if (empty($repitePassword)) {
 
             $errors[] = "Debe repetir el password";
         }
 
-        if($repitePassword !== $password){
+        if ($repitePassword !== $password) {
 
             $errors[] = "Debe introcir el mismo password";
         }
-
 
 
         if (empty($errors)) {
@@ -809,8 +805,7 @@ public function createUsuario(): string
                     $errors[] = "Error: " . $e->getMessage();
                 }
             }
-        }
-        else
+        } else
             App::get(Router::class)->redirect('back-usuarios');
 
         if (!empty($errors))
@@ -824,7 +819,8 @@ public function createUsuario(): string
         return "";
     }
 
-    public function verReservas(int $id){
+    public function verReservas(int $id)
+    {
 
         $title = "Perfil | Reservas";
         $errors = [];
@@ -833,7 +829,6 @@ public function createUsuario(): string
 
 
         $servicioModel = App::getModel(ServicioModel::class)->findBy(["id" => $id]);
-
 
 
         $order = filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING);
@@ -852,48 +847,47 @@ public function createUsuario(): string
         $message = App::get("flash")::get("message");
 
 
-        return $this->response->renderView("reservasUser", "my", compact('title','id','registra', 'servicioModel',
+        return $this->response->renderView("reservasUser", "my", compact('title', 'id', 'registra', 'servicioModel',
             'registraModel', 'errors', 'router', 'message'));
-
-
 
 
     }
 
-    public function verPedidos(int $id){
+    public function verPedidos(int $id)
+    {
 
         $title = "Pedidos";
         $errors = [];
 
 
-            $pedidoModel = App::getModel(PedidoModel::class);
-            $pedido = $pedidoModel->findAll();
+        $pedidoModel = App::getModel(PedidoModel::class);
+        $pedido = $pedidoModel->findAll();
 
-            $pdo = App::get("DB");
+        $pdo = App::get("DB");
 
-            $numberOfRecordsPerPage = 8;
-
-
-            $consulta = $pdo->query("SELECT COUNT(*) as total_pedidos FROM pedido");
-
-            $pedidos = $consulta->fetch();
+        $numberOfRecordsPerPage = 8;
 
 
-            $totalPaginas = $pedidos["total_pedidos"];
+        $consulta = $pdo->query("SELECT COUNT(*) as total_pedidos FROM pedido");
 
-            $totalPaginas = ceil($totalPaginas /$numberOfRecordsPerPage);
+        $pedidos = $consulta->fetch();
 
-            $currentPage = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
-            if (empty($currentPage))
-                $currentPage = 1;
 
-            $limit = $numberOfRecordsPerPage;
+        $totalPaginas = $pedidos["total_pedidos"];
 
-            $pedidos = $pedidoModel->findAllPaginated($currentPage, $limit);
+        $totalPaginas = ceil($totalPaginas / $numberOfRecordsPerPage);
+
+        $currentPage = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
+        if (empty($currentPage))
+            $currentPage = 1;
+
+        $limit = $numberOfRecordsPerPage;
+
+        $pedidos = $pedidoModel->findAllPaginated($currentPage, $limit);
 
 
         $pedidoModel = App::getModel(PedidoModel::class)->findBy(["REALIZA_USUARIO_id" => $id]);
-        $realiza_usuarioModel = App::getModel( RealizaModel::class)->findBy(["USUARIO_id" => $id]);
+        $realiza_usuarioModel = App::getModel(RealizaModel::class)->findBy(["USUARIO_id" => $id]);
         $contieneModel = App::getModel(ContieneModel::class)->findBy(["id" => $id]);
 
 
@@ -913,7 +907,88 @@ public function createUsuario(): string
         $message = App::get("flash")::get("message");
 
         return $this->response->renderView("pedidosUser", "my", compact('title', 'id',
-            'pedidoModel', 'realiza_usuarioModel','contieneModel', 'errors', 'totalPaginas', 'router', 'message', 'pedido', 'pedidos'));
+            'pedidoModel', 'realiza_usuarioModel', 'contieneModel', 'errors', 'totalPaginas', 'router', 'message', 'pedido', 'pedidos'));
+    }
+
+    /**
+     * @return string
+     * @throws ModelException
+     */
+    public function filterPedidoUsuario(int $id): string
+    {
+        // S'executa amb el POST
+        $title = "Usuario | Pedidos";
+        $errors = [];
+        $pedidoModel = null;
+        $pedido = null;
+        $pedidos = null;
+        $realiza_usuarioModel = null;
+        $contieneModel = null;
+
+        $pedidoModel = App::getModel(PedidoModel::class);
+        $pedido = $pedidoModel->findAll();
+
+        $pedidoModel = App::getModel(PedidoModel::class)->findBy(["REALIZA_USUARIO_id" => $id]);
+        $realiza_usuarioModel = App::getModel(RealizaModel::class)->findBy(["USUARIO_id" => $id]);
+        $contieneModel = App::getModel(ContieneModel::class)->findBy(["id" => $id]);
+
+
+        $router = App::get(Router::class);
+
+        $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_STRING);
+
+        $tipo_busqueda = filter_input(INPUT_POST, "optradio", FILTER_SANITIZE_STRING);
+
+        if (!empty($text)) {
+
+            $pedidoModel = App::getModel(PedidoModel::class);
+            if ($tipo_busqueda == "both") {
+                $pedidos = $pedidoModel->executeQuery("SELECT * FROM pedido WHERE precio LIKE :text OR estado LIKE :text",
+                    ["text" => "%$text%"]);
+
+            }
+            if ($tipo_busqueda == "precio") {
+                $pedidos = $pedidoModel->executeQuery("SELECT * FROM pedido WHERE precio LIKE :text",
+                    ["text" => "%$text%"]);
+
+            }
+            if ($tipo_busqueda == "estado") {
+                $pedidos = $pedidoModel->executeQuery("SELECT * FROM pedido WHERE estado LIKE :text",
+                    ["text" => "%$text%"]);
+            }
+
+        } else {
+            $error = "Debe introducir una palabra de búsqueda";
+        }
+
+        $pdo = App::get("DB");
+
+        $numberOfRecordsPerPage = 8;
+
+
+        $consulta = $pdo->query("SELECT COUNT(*) as total_pedidos FROM pedido");
+
+        $pedidosFilter = $consulta->fetch();
+
+
+        $totalPaginas = $pedidosFilter["total_pedidos"];
+
+        $totalPaginas = ceil($totalPaginas / $numberOfRecordsPerPage);
+
+        $currentPage = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
+        if (empty($currentPage))
+            $currentPage = 1;
+
+        $limit = $numberOfRecordsPerPage;
+
+        $pedidosFilter = $pedidoModel->findAllPaginated($currentPage, $limit);
+
+
+
+        return $this->response->renderView("pedidosUser", "my", compact('title', 'id',
+            'pedidoModel', 'errors', 'router', 'realiza_usuarioModel', 'pedido', 'contieneModel', 'pedidos', 'totalPaginas', 'pedidosFilter'));
+
+
     }
 
 

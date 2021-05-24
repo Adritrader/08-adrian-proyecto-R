@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid"><a style="padding: 20px !important;" href="../<?= $id ?>/show">
     <button type="button" class="btn"><i class="fas fa-chevron-circle-left"></i>Atrás</button>
 </a>
@@ -42,7 +44,13 @@
         </div>
         <p><?= $error ?? "" ?></p>
     </div>
-    <div class="container-fluid" >
+
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] === "GET"){
+
+    ?>
+    <div class="container-fluid">
         <div class="row">
             <?php if (empty($pedidoModel)) : ?>
                 <h3>No se ha encontrado ningun pedido</h3>
@@ -61,7 +69,8 @@
                         <td style="font-size: 12px !important; padding-left: 30px !important;"><?= $pedido->getPrecio() ?></td>
                         <td style="font-size: 12px !important; padding-left: 65px !important;"><?= $pedido->getFechaPedido()->format("Y-m-d") ?></td>
                         <td style="font-size: 12px !important; padding-left: 90px !important;"><?= $pedido->getEstado() ?></td>
-                        <td style="font-size: 12px !important; padding-left: 120px !important;"><a href="/pedidos/<?= $pedido->getId() ?>/edit">
+                        <td style="font-size: 12px !important; padding-left: 120px !important;"><a
+                                    href="/pedidos/<?= $pedido->getId() ?>/edit">
                                 <button type="button" class="button-four"><i class="fa fa-edit"></i>Ver Pedido</button>
                             </a>
 
@@ -75,6 +84,50 @@
         </div>
     </div>
 
+    <?php endif;
+    } else {?>
+
+    <div class="container-fluid">
+        <div class="row">
+            <?php if (empty($pedidos)) : ?>
+                <h3>No se ha encontrado ningun pedido</h3>
+            <?php else: ?>
+
+            <table style="border: 2px solid black !important; width: 900px; max-height: 800px !important;">
+                <tr>
+                    <th>Precio</th>
+                    <th>Fecha pedido</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+
+                <?php foreach ($pedidos as $pedido) { ?>
+                    <tr>
+                        <td style="font-size: 12px !important; padding-left: 30px !important;"><?= $pedido->getPrecio() ?></td>
+                        <td style="font-size: 12px !important; padding-left: 65px !important;"><?= $pedido->getFechaPedido()->format("Y-m-d") ?></td>
+                        <td style="font-size: 12px !important; padding-left: 90px !important;"><?= $pedido->getEstado() ?></td>
+                        <td style="font-size: 12px !important; padding-left: 120px !important;"><a
+                                    href="/pedidos/<?= $pedido->getId() ?>/edit">
+                                <button type="button" class="button-four"><i class="fa fa-edit"></i>Ver Pedido</button>
+                            </a>
+
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </table>
+
+        </div>
+    </div>
+    <?php endif; }?>
+
+
+
+
+    <?php
+
+    if(!empty($pedidos)){ ?>
     <nav aria-label="Page navigation example" style="padding: 20px">
         <ul class="pagination">
             <li class="page-item">
@@ -83,8 +136,8 @@
                     <span class="sr-only">Previous</span>
                 </a>
             </li>
-            <?php
 
+            <?php
             for ($i = 1; $i <= $totalPaginas; $i++) {
 
                 ?>
@@ -101,7 +154,7 @@
             </li>
         </ul>
     </nav>
-    <?php endif; ?>
+    <?php } ?>
 
 
 </div>

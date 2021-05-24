@@ -8,7 +8,7 @@ use App\Core\App;
 use App\Core\Response;
 use App\Database;
 use App\Entity\Usuario;
-use App\Model\UserModel;
+use App\Model\UsuarioModel;
 use App\Model\RealizaModel;
 use App\Utils\MyLogger;
 use App\Utils\MyMail;
@@ -16,6 +16,8 @@ use App\Core\Helpers\FlashMessage;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use App\Core\Router;
+use App\Core\Exception\NotFoundException;
+
 
 ini_set('session.cookie_secure', "0");
 ini_set('session.cookie_httponly', true);
@@ -72,7 +74,7 @@ $loggedUser = $_SESSION["loggedUser"] ?? 0;
 $id = filter_var($loggedUser, FILTER_VALIDATE_INT);
 if (!empty($id)) {
     try {
-        App::bind('user', App::getModel(UserModel::class)->find($id));            
+        App::bind('user', App::getModel(UsuarioModel::class)->find($id));
     } 
     catch (NotFoundException $notFoundException) {
         App::bind('user',null);            

@@ -32,8 +32,8 @@ class AuthController extends Controller
         }
 
         if (!empty($username) && !empty($password)) {
-            $pdo = App::get("DB");
-            $usuarioModel = new UsuarioModel($pdo);
+
+            $usuarioModel = App::getModel(UsuarioModel::class);
             $router = App::get(Router::class);
             $usuario = $usuarioModel->findOneBy(['username' => $username]);
 
@@ -50,7 +50,7 @@ class AuthController extends Controller
                 session_regenerate_id(true);
 
                 App::get('flash')->set("message", "Se ha conectado correctamente");
-                App::get("redirect")->redirect("login");
+                App::get("redirect")->redirect("perfil/". $_SESSION["loggedUser"] ."/show");
 
             }
 

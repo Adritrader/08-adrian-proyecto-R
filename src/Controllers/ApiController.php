@@ -41,6 +41,7 @@ class ApiController extends Controller
     public function showProducto(int $id): string
     {
         try {
+
             $productoModel = App::getModel(ProductoModel::class);
             $producto = $productoModel->find($id);
         } catch (NotFoundException $e) {

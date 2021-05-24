@@ -96,7 +96,7 @@ class ProductoController extends Controller {
 
 
         return $this->response->renderView("back/back-productos", "back", compact('title', 'productos',
-            'productoModel', 'errors', 'router'));
+            'productoModel', 'errors', 'router', 'error'));
 
 
     }

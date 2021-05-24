@@ -19,6 +19,17 @@
                         </div>
                     <?php endif;
                     ?>
+                    <?php
+                    if(!empty($errors)):?>
+
+
+                            <?php foreach ($errors as $error){ ?>
+                                <div class="alert alerta-login" role="alert">
+                                <?= $error ?>
+                                 </div>
+                    <?php } ?>
+                    <?php endif;
+                    ?>
                     <form class="mt-5" method="post" novalidate>
                         <div class="form-group">
                             <label for="username">Username:</label>
