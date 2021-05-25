@@ -48,6 +48,7 @@ $_flash = new FlashMessage();
 $redirect = new Router();
 $usuario = new Usuario();
 
+
 App::bind("redirect", $redirect);
 App::bind("usuario", $usuario);
 App::bind("flash", $_flash);

@@ -20,6 +20,16 @@ use App\Entity\Usuario;
             <a href="/perfil/<?= $user->getId() ?>/verPedidos"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Pedidos</button></a>
         </div>
 
+        <?php
+        if(!empty($message)):?>
+
+            <div class="alert alerta-login" role="alert">
+                <?= $message ?>
+
+            </div>
+        <?php endif;
+        ?>
+
         <div class="card col-lg-9 col-md-6 py-2">
             <div class="card col-lg-3 col-md-6 py-2">
                 <?= generar_imagen_local('/' . Usuario::AVATAR_PATH, $user->getAvatar(),

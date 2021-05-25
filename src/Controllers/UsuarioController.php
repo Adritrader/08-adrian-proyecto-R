@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Exception\ModelException;
 use App\Core\Exception\NotFoundException;
 use App\Core\Router;
+use App\Core\Security;
 use App\Database;
 use App\Entity\Producto;
 use App\Entity\Usuario;
@@ -209,7 +210,6 @@ class UsuarioController extends Controller
             }
         }
 
-
         if (empty($errors)) {
 
 
@@ -230,16 +230,18 @@ class UsuarioController extends Controller
 
                 $usuarioModel->saveTransaction($usuario);
                 App::get(MyLogger::class)->info("Se ha creado un nuevo usuario");
+                App::get('flash')->set("message", "Se ha registrado correctamente");
+
+
+                $userLogged = $usuarioModel->findOneBy(['username' => $username]);
+                $_SESSION["loggedUser"] = $userLogged->getId();
+                App::get("redirect")->redirect("perfil/". $_SESSION["loggedUser"] ."/show");
 
             } catch (PDOException | ModelException | Exception $e) {
                 $errors[] = "Error: " . $e->getMessage();
             }
         }
 
-        if (empty($errors)) {
-            App::get('flash')->set("message", "Se ha registrado correctamente");
-            App::get(Router::class)->redirect("login");
-        }
 
         return $this->response->renderView("auth/login", "my", compact(
             "errors", "nombre"));
@@ -290,7 +292,6 @@ class UsuarioController extends Controller
             $errors[] = "Debe introcir el mismo password";
         }
 
-        $password = App::get("security")->encode($password);
 
 
         if (empty($errors)) {

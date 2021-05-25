@@ -1,26 +1,18 @@
 <?php
-declare(strict_types=1);
+
 
 namespace App\Controllers;
 
 
 use App\Core\Controller;
 use App\Core\Exception\ModelException;
-use App\Core\Exception\NotFoundException;
 use App\Core\Router;
-
-use App\Entity\Producto;
 use App\Entity\Registra;
-use App\Exception\UploadedFileException;
-use App\Exception\UploadedFileNoFileException;
-use App\Model\ProductoModel;
 use App\Core\App;
-use App\Core\Security;
 use App\Model\RegistraModel;
 use App\Model\ServicioModel;
 use App\Model\UsuarioModel;
 use App\Utils\MyLogger;
-use App\Utils\UploadedFile;
 use DateTime;
 use Exception;
 use PDOException;
