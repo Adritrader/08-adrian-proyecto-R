@@ -84,7 +84,7 @@ $router->get("perfil/:id/verPedidos", "UsuarioController", "verPedidos", ["id" =
 $router->get("usuarios/create", "UsuarioController", "createUsuario", [], "usuarios_create");
 $router->post("usuarios/create", "UsuarioController", "storeUsuario", [], "usuarios_store");
 $router->get("usuarios/:id/edit", "UsuarioController", "editUsuario", ["id" => "number"],"usuarios_edit", "ROLE_ADMIN");
-$router->post("usuarios/:id/edit", "UsuarioController", "updateUsuario", ["id" => "number"], "usuarios_update", "ROLE_ADMIN");
+$router->post("usuarios/:id/edit", "UsuarioController", "upda teUsuario", ["id" => "number"], "usuarios_update", "ROLE_ADMIN");
 
 $router->get("usuarios/:id/editPerfil", "UsuarioController", "editPerfilUsuario", ["id" => "number"],"usuarios_edit_perfil", "ROLE_USER");
 $router->post("usuarios/:id/editPerfil", "UsuarioController", "updatePerfilUsuario", ["id" => "number"], "usuarios_update_perfil", "ROLE_USER");

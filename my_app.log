@@ -285,3 +285,7 @@
 [2021-05-25T17:20:57.091015+00:00] app.INFO: Se han guardado los productos en el pedido [] []
 [2021-05-25T17:20:57.092615+00:00] app.INFO: Se han guardado los productos en el pedido [] []
 [2021-05-25T17:20:57.094585+00:00] app.INFO: Se han guardado los productos en el pedido [] []
+[2021-05-27T16:45:03.064968+00:00] app.INFO: Se ha registrado un usuario que realiza un pedido [] []
+[2021-05-27T16:45:03.068567+00:00] app.INFO: Se ha creado un nuevo pedido [] []
+[2021-05-27T16:45:03.070372+00:00] app.INFO: Se han guardado los productos en el pedido [] []
+[2021-05-27T16:45:03.071766+00:00] app.INFO: Se han guardado los productos en el pedido [] []

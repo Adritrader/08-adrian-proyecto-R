@@ -75,6 +75,7 @@ class ProductoController extends Controller {
         if (!empty($text)) {
 
             $productoModel = App::getModel(ProductoModel::class);
+
             if ($tipo_busqueda == "both") {
                 $productos = $productoModel->executeQuery("SELECT * FROM producto WHERE nombre LIKE :text OR descripcion LIKE :text",
                     ["text" => "%$text%"]);
@@ -85,6 +86,15 @@ class ProductoController extends Controller {
                     ["text" => "%$text%"]);
 
             }
+/*
+
+            if($tipo_busqueda == "dato"){
+
+                $productos = $productoModel->executeQuery("SELECT * FROM producto WHERE dato LIKE :text", ["text" =>"%$text%"]);
+            }
+
+*/
+
             if ($tipo_busqueda == "descripcion") {
                 $productos = $productoModel->executeQuery("SELECT * FROM producto WHERE descripcion LIKE :text",
                     ["text" => "%$text%"]);
@@ -96,7 +106,7 @@ class ProductoController extends Controller {
 
 
         return $this->response->renderView("back/back-productos", "back", compact('title', 'productos',
-            'productoModel', 'errors', 'router', 'error'));
+            'productoModel', 'errors', 'router'));
 
 
     }
@@ -183,25 +193,52 @@ class ProductoController extends Controller {
     public function showProducto(int $id): string
     {
         $errors = [];
+
         if (!empty($id)) {
-            //try {
+
+            try {
                 $productoModel = App::getModel(ProductoModel::class);
                 $producto = $productoModel->find($id);
                 $productos = $productoModel->findAll();
                 $nombre = $producto->getNombre() . "" . $producto->getDescripcion();
-                return $this->response->renderView("single-page", "my", compact(
-                    "errors", "producto", "productos"));
 
-            //} catch (NotFoundException $notFoundException) {
-              //  $errors[] = $notFoundException->getMessage();
-            //}
+                return $this->response->renderView("single-page", "my", compact(
+                    "errors", "producto", "productos", "nombre"));
+
+            } catch (NotFoundException $notFoundException) {
+                $errors[] = $notFoundException->getMessage();
+            }
         }
         else
             return $this->response->renderView("single-page", "my", compact(
                 "errors", "producto", "productos"));
-
-        return "";
     }
+
+    /*
+
+    public function showProducto(int $id){
+
+        $errors = [];
+
+        if(!empty($id)){
+
+            try{
+
+                $productoModel = App::getModel(ProductoModel::class);
+                $producto = $productoModel->find($id);
+
+                return $this->response->renderView("single-page", "layout", compact("producto", "productoModel"));
+
+            } catch (NotFoundException $notFoundException){
+
+                $errors[] = $notFoundException->getMessage();
+
+            }
+
+        }
+
+    }
+    */
 
 
 
